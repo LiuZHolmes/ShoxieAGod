@@ -33,6 +33,22 @@ async def _(session: CommandSession):
     return
 
 
+@on_command('player')
+async def player(session: CommandSession):
+    user_name = session.get('user_name')
+    detail = await get_player_detail(user_name)
+    result = build_player_detail(detail, user_name)
+    await session.send(result)
+
+
+@player.args_parser
+async def _(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip()
+    if stripped_arg:
+        session.state['user_name'] = stripped_arg
+    return
+
+
 async def get_recent_history_of_user(user_name: str) -> str:
     http = urllib3.PoolManager()
     r = http.request(
@@ -43,6 +59,16 @@ async def get_recent_history_of_user(user_name: str) -> str:
     return history
 
 
+async def get_player_detail(user_name: str) -> str:
+    http = urllib3.PoolManager()
+    r = http.request(
+        'GET', f'https://www.5ewin.com/api/data/player/{user_name}')
+    data = str(r.data, encoding='utf-8')
+    dataObj = json.loads(data)
+    detail = dataObj['data']
+    return detail
+
+
 def build_recent_history_result(history):
     result = ''
     for i in history:
@@ -50,6 +76,11 @@ def build_recent_history_result(history):
         pass
     return result
 
+
 def build_recent_match_statistic(history, user_name):
     match = history[0]
     return f'玩家：{user_name}\n比赛时间：{match["round_time"]}\n地图：{match["map"]}\n击杀数：{match["kill"]}\nrating：{match["rating"]}'
+
+
+def build_player_detail(detail, user_name):
+    return f'玩家：{user_name}\n天梯分：{detail["elo"]}\n爆头率：{detail["per_headshot"]}\n击杀数：{detail["kill"]}\nMVP数：{detail["mvp_total"]}'
