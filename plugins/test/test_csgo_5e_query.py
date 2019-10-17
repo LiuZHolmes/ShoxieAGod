@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import urllib3
 
-from plugins import _5e_query
+from plugins import csgo_5e_query
 
 
 class Test_5e(unittest.TestCase):
@@ -17,7 +17,7 @@ class Test_5e(unittest.TestCase):
         response = bytes(str, encoding='utf-8')
         r = urllib3.HTTPResponse(body=response)
         urllib3.PoolManager.request = MagicMock(return_value=r)
-        result = asyncio.run(_5e_query.get_recent_history_of_user('test'))
+        result = asyncio.run(csgo_5e_query.get_recent_history_of_user('test'))
         self.assertEqual(result[0]['rating'], "23.39")
 
 
