@@ -1,6 +1,9 @@
-import urllib3
 import json
+
+import urllib3
 from nonebot import on_command, CommandSession
+
+
 @on_command('5e')
 async def _5e(session: CommandSession):
     user_name = session.get('user_name')
