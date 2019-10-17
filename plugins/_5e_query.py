@@ -1,7 +1,7 @@
-import json
-
-import urllib3
 from nonebot import on_command, CommandSession
+
+from utils.assembler import response_data_to_dict
+from utils.requester import send_request
 
 
 @on_command('5e')
@@ -53,22 +53,14 @@ async def _(session: CommandSession):
 
 
 async def get_recent_history_of_user(user_name: str) -> str:
-    http = urllib3.PoolManager()
-    r = http.request(
-        'GET', f'https://www.5ewin.com/api/data/match_list/{user_name}?yyyy=2019&page=1')
-    data = str(r.data, encoding='utf-8')
-    dataObj = json.loads(data)
-    history = dataObj['data']
+    response = send_request('GET', f'https://www.5ewin.com/api/data/match_list/{user_name}?yyyy=2019&page=1')
+    history = response_data_to_dict(response)
     return history
 
 
 async def get_player_detail(user_name: str) -> str:
-    http = urllib3.PoolManager()
-    r = http.request(
-        'GET', f'https://www.5ewin.com/api/data/player/{user_name}')
-    data = str(r.data, encoding='utf-8')
-    dataObj = json.loads(data)
-    detail = dataObj['data']
+    response = send_request('GET', f'https://www.5ewin.com/api/data/player/{user_name}')
+    detail = response_data_to_dict(response)
     return detail
 
 
