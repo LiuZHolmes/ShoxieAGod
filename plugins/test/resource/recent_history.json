@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "errcode": 0,
+  "message": null,
+  "data": [
+    {
+      "season": 4,
+      "match_type": "1",
+      "start_time": "10-13 22:48:59",
+      "end_time": "23:34:48",
+      "round_time": "46 分钟",
+      "map": "de_dust2",
+      "score1": "10",
+      "score2": "16",
+      "kill": "21",
+      "is_mvp": "0",
+      "is_most_1v2": "0",
+      "is_most_headshot": "0",
+      "is_most_first_kill": "0",
+      "is_most_end": "0",
+      "is_most_awp": "0",
+      "is_most_jump": "0",
+      "is_win": "1",
+      "rws": "11.28",
+      "rating": "23.39",
+      "origin_elo": "1408.20",
+      "change_elo": "10.48",
+      "placement": "1"
+    }
+  ]
+}
