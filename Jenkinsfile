@@ -9,7 +9,8 @@ pipeline {
     }
     stage('Run') {
       steps {
-        sh '/home/admin/script/run.sh'
+        sh '''nohup python3 /home/admin/code/ShoxieAGod/shoxieAGod.py > /home/admin/log/shoxi
+eagod.log &'''
       }
     }
   }
