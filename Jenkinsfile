@@ -9,8 +9,17 @@ pipeline {
     }
     stage('Run') {
       steps {
-        sh '''BUILD_ID=dontKillMe
-/home/admin/script/run.sh'''
+        sh '''OLD_BUILD_ID=$BUILD_ID
+
+echo $OLD_BUILD_ID
+
+BUILD_ID=DONTKILLME
+
+/home/admin/script/run.sh
+
+BUILD_ID=$OLD_BUILD_ID
+
+echo $BUILD_ID'''
       }
     }
   }
