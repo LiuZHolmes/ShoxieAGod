@@ -9,17 +9,9 @@ pipeline {
     }
     stage('Run') {
       steps {
-        sh '''OLD_BUILD_ID=$BUILD_ID
-
-echo $OLD_BUILD_ID
-
-BUILD_ID=DONTKILLME
-
+        sh '''JENKINS_NODE_COOKIE=DONTKILLME
 /home/admin/script/run.sh
-
-BUILD_ID=$OLD_BUILD_ID
-
-echo $BUILD_ID'''
+'''
       }
     }
   }
