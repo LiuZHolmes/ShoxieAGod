@@ -9,8 +9,8 @@ pipeline {
     }
     stage('Run') {
       steps {
-        sh '''nohup python3 /home/admin/code/ShoxieAGod/shoxieAGod.py > /home/admin/log/shoxi
-eagod.log &'''
+        sh '''BUILD_ID=dontKillMe
+/home/admin/script/run.sh'''
       }
     }
   }
