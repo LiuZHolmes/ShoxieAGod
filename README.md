@@ -3,6 +3,10 @@
 
 基于[noneBot](https://nonebot.cqp.moe)的QQ机器人，可用来查询CSGO战绩
 
+## 使用
+
+不想自己自己部署的话可以尝试已部署的机器人QQ：3308423285
+
 ## 已实现功能
 - history [arg] 
 
