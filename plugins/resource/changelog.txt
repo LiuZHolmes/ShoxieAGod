@@ -1,4 +1,6 @@
+2019.10.20
+新增compare命令
+可参考README：https://github.com/LiuZHolmes/ShoxieAGod
 2019.10.19
 5e命令改名为history
 现支持history，recent，player三种命令查询
-可参考README：https://github.com/LiuZHolmes/ShoxieAGod
