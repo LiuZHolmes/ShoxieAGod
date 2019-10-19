@@ -4,12 +4,12 @@ from utils.assembler import response_data_to_dict
 from utils.requester import send_request
 
 
-@on_command('5e')
+@on_command('history')
 async def _5e(session: CommandSession):
     user_name = session.get('user_name')
     history = await get_recent_history_of_user(user_name)
     result = build_recent_history_result(history)
-    await session.send(f'{user_name}的最近战绩是{result}')
+    await session.send(f'{user_name}的最近历史战绩是{result}')
 
 
 @_5e.args_parser
