@@ -1,5 +1,6 @@
 import asyncio
 import unittest
+from os import path
 from unittest.mock import MagicMock
 
 import urllib3
@@ -9,7 +10,7 @@ from plugins import csgo_5e_query
 
 class Test_5e(unittest.TestCase):
     def test_get_recent_history_of_user(self):
-        with open('resource/recent_history.json', 'r', encoding='utf-8') as f:
+        with open(path.join(path.dirname(__file__), 'resource/recent_history.json'), 'r', encoding='utf-8') as f:
             try:
                 str = f.read()
             except:
