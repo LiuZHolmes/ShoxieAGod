@@ -110,7 +110,7 @@ def build_player_detail(detail, user_name):
 
 def build_compare_detail(first_detail, second_detail, first_user_name, second_user_name):
     return f'玩家：{first_user_name} VS {second_user_name}\n' \
-           f'天梯分：{first_detail["elo"]} VS {second_detail["elo"]} ({float(first_detail["elo"]) - float(second_detail["elo"])})\n' \
-           f'爆头率：{first_detail["per_headshot"]} VS {second_detail["per_headshot"]} ({float(first_detail["per_headshot"]) - float(second_detail["per_headshot"])})\n' \
-           f'击杀数：{first_detail["kill"]} VS {second_detail["kill"]} ({float(first_detail["kill"]) - float(second_detail["kill"])})\n' \
-           f'MVP数：{first_detail["mvp_total"]} VS {second_detail["mvp_total"]} ({float(first_detail["mvp_total"]) - float(second_detail["mvp_total"])})'
+           f'天梯分：{first_detail["elo"]} VS {second_detail["elo"]} ({round(float(first_detail["elo"]) - float(second_detail["elo"]), 2)})\n' \
+           f'爆头率：{first_detail["per_headshot"]} VS {second_detail["per_headshot"]} ({round(float(first_detail["per_headshot"]) - float(second_detail["per_headshot"]), 2)})\n' \
+           f'击杀数：{first_detail["kill"]} VS {second_detail["kill"]} ({int(first_detail["kill"]) - int(second_detail["kill"])})\n' \
+           f'MVP数：{first_detail["mvp_total"]} VS {second_detail["mvp_total"]} ({int(first_detail["mvp_total"]) - int(second_detail["mvp_total"])})'
