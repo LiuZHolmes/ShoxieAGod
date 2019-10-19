@@ -5,14 +5,14 @@ from utils.requester import send_request
 
 
 @on_command('history')
-async def _5e(session: CommandSession):
+async def history(session: CommandSession):
     user_name = session.get('user_name')
-    history = await get_recent_history_of_user(user_name)
-    result = build_recent_history_result(history)
+    recent_history = await get_recent_history_of_user(user_name)
+    result = build_recent_history_result(recent_history)
     await session.send(f'{user_name}的最近历史战绩是{result}')
 
 
-@_5e.args_parser
+@history.args_parser
 async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
@@ -23,8 +23,8 @@ async def _(session: CommandSession):
 @on_command('recent')
 async def recent(session: CommandSession):
     user_name = session.get('user_name')
-    history = await get_recent_history_of_user(user_name)
-    result = build_recent_match_statistic(history, user_name)
+    recent_history = await get_recent_history_of_user(user_name)
+    result = build_recent_match_statistic(recent_history, user_name)
     await session.send(result)
 
 
@@ -49,6 +49,25 @@ async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
         session.state['user_name'] = stripped_arg
+    return
+
+
+@on_command('compare')
+async def compare(session: CommandSession):
+    first_user_name = session.get('first_user_name')
+    second_user_name = session.get('second_user_name')
+    print(first_user_name, second_user_name)
+    detail = await get_player_detail(first_user_name)
+    result = build_player_detail(detail, first_user_name)
+    await session.send(result)
+
+
+@compare.args_parser
+async def _(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip().split()
+    if stripped_arg:
+        session.state['first_user_name'] = stripped_arg[0]
+        session.state['second_user_name'] = stripped_arg[1]
     return
 
 
