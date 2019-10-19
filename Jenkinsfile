@@ -10,7 +10,7 @@ pipeline {
     stage('Run') {
       steps {
         sh '''JENKINS_NODE_COOKIE=DONTKILLME
-/home/admin/script/run.sh
+nohup python3 ./ShoxieAGod/shoxieAGod.py > /home/admin/log/shoxieagod.log &
 '''
       }
     }
