@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''whoami
 pwd'''
-        sh 'kill $(ps aux | grep \'[p]ython3 /home/admin/code/ShoxieAGod/shoxieAGod.py\' | awk \'{print $2}\')'
+        sh 'kill $(ps aux | grep \'[p]ython3 ./shoxieAGod.py\' | awk \'{print $2}\')'
       }
     }
     stage('Run') {
