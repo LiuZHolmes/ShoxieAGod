@@ -1,6 +1,11 @@
 pipeline {
   agent any
   stages {
+    stage('Run Test') {
+      steps {
+        sh 'python3 -m unittest discover -s plugins/test'
+      }
+    }
     stage('Stop Original Process') {
       steps {
         sh '''whoami
