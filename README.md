@@ -1,4 +1,6 @@
 # ShoxieAGod
+![Jenkins](https://img.shields.io/jenkins/build/http/47.100.44.59:8081/job/ShoxieAGod/job/master)
+
 基于[noneBot](https://nonebot.cqp.moe)的QQ机器人，可用来查询CSGO战绩
 
 ## 已实现功能
