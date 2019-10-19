@@ -56,9 +56,9 @@ async def _(session: CommandSession):
 async def compare(session: CommandSession):
     first_user_name = session.get('first_user_name')
     second_user_name = session.get('second_user_name')
-    print(first_user_name, second_user_name)
-    detail = await get_player_detail(first_user_name)
-    result = build_player_detail(detail, first_user_name)
+    first_detail = await get_player_detail(first_user_name)
+    second_detail = await get_player_detail(second_user_name)
+    result = build_compare_detail(first_detail, second_detail, first_user_name, second_user_name)
     await session.send(result)
 
 
@@ -93,8 +93,24 @@ def build_recent_history_result(history):
 
 def build_recent_match_statistic(history, user_name):
     match = history[0]
-    return f'玩家：{user_name}\n比赛时间：{match["round_time"]}\n地图：{match["map"]}\n击杀数：{match["kill"]}\nrating：{match["rating"]}'
+    return f'玩家：{user_name}\n' \
+           f'比赛时间：{match["round_time"]}\n' \
+           f'地图：{match["map"]}\n' \
+           f'击杀数：{match["kill"]}\n' \
+           f'rating：{match["rating"]}'
 
 
 def build_player_detail(detail, user_name):
-    return f'玩家：{user_name}\n天梯分：{detail["elo"]}\n爆头率：{detail["per_headshot"]}\n击杀数：{detail["kill"]}\nMVP数：{detail["mvp_total"]}'
+    return f'玩家：{user_name}\n' \
+           f'天梯分：{detail["elo"]}\n' \
+           f'爆头率：{detail["per_headshot"]}\n' \
+           f'击杀数：{detail["kill"]}\n' \
+           f'MVP数：{detail["mvp_total"]}'
+
+
+def build_compare_detail(first_detail, second_detail, first_user_name, second_user_name):
+    return f'玩家：{first_user_name} VS {second_user_name}\n' \
+           f'天梯分：{first_detail["elo"]} VS {second_detail["elo"]} ({first_detail["elo"] - second_detail["elo"]})\n' \
+           f'爆头率：{first_detail["per_headshot"]} VS {second_detail["per_headshot"]} ({first_detail["per_headshot"] - second_detail["per_headshot"]})\n' \
+           f'击杀数：{first_detail["kill"]} VS {second_detail["kill"]} ({first_detail["kill"] - second_detail["kill"]})\n' \
+           f'MVP数：{first_detail["mvp_total"]} VS {second_detail["mvp_total"]} ({first_detail["mvp_total"] - second_detail["mvp_total"]})'
