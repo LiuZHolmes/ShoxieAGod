@@ -21,5 +21,20 @@ nohup python3 ./shoxieAGod.py > /home/admin/log/shoxieagod.log &
 '''
       }
     }
+    stage('Publish Report') {
+      steps {
+        sh '''script {
+          publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: \'/home/admin/log/coverage\',
+            reportFiles: \'index.html\',
+            reportTitles: "Report",
+            reportName: "Report"
+          ])
+        }'''
+        }
+      }
+    }
   }
-}
