@@ -1,8 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Run Test') {
+    stage('Prepare and Run Test') {
       steps {
+        sh 'pip3 install -r requirements.txt'
         sh 'python3 -m unittest discover -s plugins/test'
       }
     }
