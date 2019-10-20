@@ -1,5 +1,6 @@
 2019.10.20
-新增compare命令
+新增compare，bind命令
+player命令改名为me
 可参考README：https://github.com/LiuZHolmes/ShoxieAGod
 2019.10.19
 5e命令改名为history
