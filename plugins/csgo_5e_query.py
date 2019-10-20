@@ -1,3 +1,4 @@
+import redis
 from nonebot import on_command, CommandSession
 
 from utils.assembler import response_data_to_dict
@@ -49,6 +50,9 @@ async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
         session.state['user_name'] = stripped_arg
+    else:
+        r = redis.Redis(host='127.0.0.1', port=6379, db=0)
+        session.state['user_name'] = r.get(session.ctx['user_id'])
     return
 
 
