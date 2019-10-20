@@ -43,15 +43,15 @@ async def _(session: CommandSession):
     return
 
 
-@on_command('player')
-async def player(session: CommandSession):
+@on_command('me')
+async def me(session: CommandSession):
     user_name = session.get('user_name')
     detail = await get_player_detail(user_name)
     result = build_player_detail(detail, user_name)
     await session.send(result)
 
 
-@player.args_parser
+@me.args_parser
 async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
