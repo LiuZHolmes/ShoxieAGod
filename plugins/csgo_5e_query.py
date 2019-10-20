@@ -81,6 +81,23 @@ async def _(session: CommandSession):
     return
 
 
+@on_command('bind')
+async def bind(session: CommandSession):
+    user_name = session.get('user_name')
+    r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
+    user_id = session.ctx['user_id']
+    session.state['user_name'] = r.set(user_id, user_name)
+    await session.send(f'绑定{user_name}到{user_id}')
+
+
+@bind.args_parser
+async def _(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip()
+    if stripped_arg:
+        session.state['user_name'] = stripped_arg
+    return
+
+
 async def get_recent_history_of_user(user_name: str) -> str:
     response = send_request('GET', f'https://www.5ewin.com/api/data/match_list/{user_name}?yyyy=2019&page=1')
     history = response_data_to_dict(response)
