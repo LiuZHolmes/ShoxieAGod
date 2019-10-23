@@ -43,8 +43,10 @@ async def _(session: CommandSession):
         session.state['domain'] = user['domain']
     else:
         r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
-        session.state['domain'] = r.get(session.ctx['user_id'])
-        session.state['user_name'] = r.get(session.ctx['user_id'])
+        domain = r.get(session.ctx['user_id'])
+        session.state['domain'] = domain
+        user = await get_player_app_detail(domain)
+        session.state['user_name'] = user['username']
     return
 
 
@@ -75,7 +77,7 @@ async def bind(session: CommandSession):
     domain = user['domain']
     r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
     r.set(user_id, domain)
-    await session.send(f'绑定{domain}到{user_id}')
+    await session.send(f'绑定{user_name}到{user_id}')
 
 
 @bind.args_parser
@@ -103,6 +105,11 @@ async def find_user_by_user_name(user_name: str) -> str:
     user = response_data_to_dict(response)['user']
     if user['total'] == 1:
         return user['list'][0]
+
+
+async def get_player_app_detail(domain: str) -> str:
+    response = send_request('GET', f'https://app2.5eplay.com/api/csgo/data/player_data/{domain}')
+    return response_data_to_dict(response)[0]['user']
 
 
 def build_recent_history_result(history):
