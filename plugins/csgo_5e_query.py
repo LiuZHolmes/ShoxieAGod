@@ -39,7 +39,8 @@ async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
         session.state['user_name'] = stripped_arg
-        session.state['domain'] = await get_domain_by_user_name(stripped_arg)
+        user = await find_user_by_user_name(stripped_arg)
+        session.state['domain'] = user['domain']
     else:
         r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
         session.state['domain'] = r.get(session.ctx['user_id'])
@@ -94,11 +95,11 @@ async def get_player_detail(domain: str) -> str:
     return detail
 
 
-async def get_domain_by_user_name(user_name: str) -> str:
+async def find_user_by_user_name(user_name: str) -> str:
     response = send_request('GET', f'https://www.5ewin.com/api/search/player/1/16?keywords={user_name}')
     user = response_data_to_dict(response)['user']
     if user['total'] == 1:
-        return user['list'][0]['domain']
+        return user['list'][0]
 
 
 def build_recent_history_result(history):
