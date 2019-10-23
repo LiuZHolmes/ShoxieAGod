@@ -115,11 +115,13 @@ async def get_player_app_detail(domain: str) -> str:
 
 
 def build_recent_history_result(history):
-    result = ''
-    for i in history:
-        result += '胜' if i['is_win'] == '1' else '负'
-        pass
-    return result
+    # result = ''
+    # for i in history:
+    #     result += '胜' if i['is_win'] == '1' else '负'
+    #     pass
+    # return result
+    return ''.join(map(lambda x: '胜' if x['is_win'] == '1' else '负', history))
+
 
 
 def build_recent_match_statistic(history, user_name):
