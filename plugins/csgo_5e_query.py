@@ -105,6 +105,8 @@ async def find_user_by_user_name(user_name: str) -> str:
     user = response_data_to_dict(response)['user']
     if user['total'] == 1:
         return user['list'][0]
+    elif user['total'] > 1:
+        return filter(lambda x: x['username'] == user_name, user['list'])[0]
 
 
 async def get_player_app_detail(domain: str) -> str:
