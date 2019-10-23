@@ -8,7 +8,8 @@ from utils.requester import send_request
 @on_command('history')
 async def history(session: CommandSession):
     user_name = session.get('user_name')
-    recent_history = await get_recent_history_of_user(user_name)
+    domain = session.get('domain')
+    recent_history = await get_recent_history_of_user(domain)
     result = build_recent_history_result(recent_history)
     await session.send(f'{user_name}的最近历史战绩是{result}')
 
@@ -16,7 +17,8 @@ async def history(session: CommandSession):
 @on_command('recent')
 async def recent(session: CommandSession):
     user_name = session.get('user_name')
-    recent_history = await get_recent_history_of_user(user_name)
+    domain = session.get('domain')
+    recent_history = await get_recent_history_of_user(domain)
     result = build_recent_match_statistic(recent_history, user_name)
     await session.send(result)
 
@@ -24,7 +26,8 @@ async def recent(session: CommandSession):
 @on_command('me')
 async def me(session: CommandSession):
     user_name = session.get('user_name')
-    detail = await get_player_detail(user_name)
+    domain = session.get('domain')
+    detail = await get_player_detail(domain)
     result = build_player_detail(detail, user_name)
     await session.send(result)
 
@@ -36,9 +39,10 @@ async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
         session.state['user_name'] = stripped_arg
+        session.state['domain'] = get_domain_by_user_name(stripped_arg)
     else:
         r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
-        session.state['user_name'] = r.get(session.ctx['user_id'])
+        session.state['domain'] = r.get(session.ctx['user_id'])
     return
 
 
@@ -78,16 +82,23 @@ async def _(session: CommandSession):
     return
 
 
-async def get_recent_history_of_user(user_name: str) -> str:
-    response = send_request('GET', f'https://www.5ewin.com/api/data/match_list/{user_name}?yyyy=2019&page=1')
+async def get_recent_history_of_user(domain: str) -> str:
+    response = send_request('GET', f'https://www.5ewin.com/api/data/match_list/{domain}?yyyy=2019&page=1')
     history = response_data_to_dict(response)
     return history
 
 
-async def get_player_detail(user_name: str) -> str:
-    response = send_request('GET', f'https://www.5ewin.com/api/data/player/{user_name}')
+async def get_player_detail(domain: str) -> str:
+    response = send_request('GET', f'https://www.5ewin.com/api/data/player/{domain}')
     detail = response_data_to_dict(response)
     return detail
+
+
+async def get_domain_by_user_name(user_name: str) -> str:
+    response = send_request('GET', f'https://www.5ewin.com/api/search/player/1/16?keywords={user_name}')
+    user = response_data_to_dict(response)['user']
+    if user['total'] == 1:
+        return user['list'][0]['domain']
 
 
 def build_recent_history_result(history):
