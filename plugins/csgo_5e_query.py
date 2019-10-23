@@ -69,9 +69,11 @@ async def _(session: CommandSession):
 
 @on_command('bind')
 async def bind(session: CommandSession):
-    domain = session.get('domain')
-    r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
+    user_name = session.get('user_name')
     user_id = session.ctx['user_id']
+    user = await find_user_by_user_name(user_name)
+    domain = user['domain']
+    r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
     r.set(user_id, domain)
     await session.send(f'绑定{domain}到{user_id}')
 
@@ -80,7 +82,7 @@ async def bind(session: CommandSession):
 async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
     if stripped_arg:
-        session.state['domain'] = stripped_arg
+        session.state['user_name'] = stripped_arg
     return
 
 
