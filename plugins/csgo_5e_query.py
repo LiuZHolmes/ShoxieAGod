@@ -44,6 +44,8 @@ async def _(session: CommandSession):
     else:
         r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
         session.state['domain'] = r.get(session.ctx['user_id'])
+        user = await find_user_by_user_name(stripped_arg)
+        session.state['user_name'] = user['username']
     return
 
 
