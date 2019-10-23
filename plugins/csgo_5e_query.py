@@ -106,7 +106,7 @@ async def find_user_by_user_name(user_name: str) -> str:
     if user['total'] == 1:
         return user['list'][0]
     elif user['total'] > 1:
-        return filter(lambda x: x['username'] == user_name, user['list'])[0]
+        return next(filter(lambda x: x['username'] == user_name, user['list']))
 
 
 async def get_player_app_detail(domain: str) -> str:
