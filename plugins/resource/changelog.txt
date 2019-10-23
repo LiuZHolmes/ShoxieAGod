@@ -1,7 +1,10 @@
+2019.10.23
+除compare命令外所有命令支持直接提供当前5e用户名查询
+重构了一些for循环
+可参考README：https://github.com/LiuZHolmes/ShoxieAGod
 2019.10.20
 新增compare，bind命令
 player命令改名为me
-可参考README：https://github.com/LiuZHolmes/ShoxieAGod
 2019.10.19
 5e命令改名为history
 现支持history，recent，player三种命令查询
