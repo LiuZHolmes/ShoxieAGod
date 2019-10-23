@@ -13,17 +13,6 @@ async def history(session: CommandSession):
     await session.send(f'{user_name}的最近历史战绩是{result}')
 
 
-@history.args_parser
-async def _(session: CommandSession):
-    stripped_arg = session.current_arg_text.strip()
-    if stripped_arg:
-        session.state['user_name'] = stripped_arg
-    else:
-        r = redis.Redis(host='127.0.0.1', port=6379, db=0, decode_responses=True)
-        session.state['user_name'] = r.get(session.ctx['user_id'])
-    return
-
-
 @on_command('recent')
 async def recent(session: CommandSession):
     user_name = session.get('user_name')
@@ -32,6 +21,7 @@ async def recent(session: CommandSession):
     await session.send(result)
 
 
+@history.args_parser
 @recent.args_parser
 async def _(session: CommandSession):
     stripped_arg = session.current_arg_text.strip()
