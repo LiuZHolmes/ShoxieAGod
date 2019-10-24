@@ -1,3 +1,5 @@
+import pprint
+
 from liquipediapy import counterstrike
 from nonebot import on_command, CommandSession
 
@@ -22,10 +24,4 @@ async def _(session: CommandSession):
 def build_pro_player_detail(player):
     player_detail = counterstrike_obj.get_player_info(player, True)
     print(player_detail['info'])
-    return f'姓名：{player_detail["info"]["name"]}\n' \
-           f'生日：{player_detail["info"]["birth_details"]}\n' \
-           f'国籍：{player_detail["info"]["nationality"]}\n' \
-           f'状态：{player_detail["info"]["status"]}\n' \
-           f'生涯：{player_detail["info"]["years_active_player"]}\n' \
-           f'队伍：{player_detail["info"]["team"]}\n' \
-           f'曾用ID：{player_detail["info"]["alternate_ids"]}'
+    return pprint.pformat(player_detail['info'], indent=2)
