@@ -6,10 +6,9 @@ counterstrike_obj = counterstrike("ShoxieAGod")
 
 @on_command('whois')
 async def who_is(session: CommandSession):
-    user_name = session.get('player')
-    player_details = counterstrike_obj.get_player_info(user_name, True)
-    print(player_details)
-    await session.send('done')
+    player = session.get('player')
+    result = build_pro_player_detail(player)
+    await session.send(result)
 
 
 @who_is.args_parser
@@ -18,3 +17,9 @@ async def _(session: CommandSession):
     if stripped_arg:
         session.state['player'] = stripped_arg
     return
+
+
+def build_pro_player_detail(player):
+    player_detail = counterstrike_obj.get_player_info(player, True)
+    print(type(player_detail))
+    return f'姓名：{player_detail["name"]}\n'
