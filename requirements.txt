@@ -1,2 +1,3 @@
+liquipediapy2
 nonebot
 redis
