@@ -8,7 +8,8 @@ counterstrike_obj = counterstrike("ShoxieAGod")
 async def who_is(session: CommandSession):
     user_name = session.get('player')
     player_details = counterstrike_obj.get_player_info(user_name, True)
-    await session.send(player_details)
+    print(player_details)
+    await session.send('done')
 
 
 @who_is.args_parser
