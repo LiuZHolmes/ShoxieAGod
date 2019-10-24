@@ -27,4 +27,4 @@ def build_pro_player_detail(player):
            f'状态：{player_detail["info"]["status"]}\n' \
            f'生涯：{player_detail["info"]["years_active_player"]}\n' \
            f'队伍：{player_detail["info"]["team"]}\n' \
-           f'AKA：{player_detail["info"]["alternate_ids"]}\n'
+           f'曾用ID：{player_detail["info"]["alternate_ids"]}\n'
