@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Prepare and Run Test') {
       steps {
-        sh 'pip3 install -r requirements.txt'
+        sh 'pip3 install -i https://pypi.python.org/pypi -r requirements.txt'
         sh 'python3 -m unittest discover -s plugins/test'
       }
     }
