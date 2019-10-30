@@ -1,6 +1,6 @@
 2019.10.30
 新增whois，upcoming命令
-可参考README：https://github.com/LiuZHolmes/ShoxieAGod
+如需更多帮助，可参考README：https://github.com/LiuZHolmes/ShoxieAGod
 2019.10.23
 除compare命令外所有命令支持直接提供当前5e用户名查询
 重构了一些for循环
