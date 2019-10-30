@@ -37,7 +37,20 @@
   - 功能
 
     查询玩家在5e平台最近一个赛季的总体表现
+- whois [arg]
+  - 参数
+  
+    arg： 游戏ID
+  - 功能
 
+    通过liquipedia查询指定游戏ID对应的职业选手，ID要与liquipedia网站的严格一致
+- upcoming [arg]
+  - 参数
+  
+    arg： 队伍名
+  - 功能
+
+    通过liquipedia查询指定队伍最近一场比赛，队伍名要与liquipedia网站的严格一致
 - compare [arg1] [arg2]
   - 参数
   
@@ -54,10 +67,3 @@
 - [ ] 接入简单的NLP模块，不用指定命令查询
 - [ ] 支持查询steam官匹数据
 - [ ] 代码重构，测试覆盖
-- [ ] whois [arg]
-  - 参数
-  
-    arg： 游戏ID
-  - 功能
-
-    通过liquipedia查询指定游戏ID对应的职业选手
