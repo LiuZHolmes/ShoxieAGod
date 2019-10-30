@@ -29,5 +29,5 @@ def build_pro_player_detail(player):
     result += extract_field_by_attribute(player_detail["info"], '状态', 'status')
     result += extract_field_by_attribute(player_detail["info"], '生涯', 'years_active_player')
     result += extract_field_by_attribute(player_detail["info"], '队伍', 'team')
-    result += extract_field_by_attribute(player_detail["info"], '曾用ID', 'alternate_ids')
+    result += extract_field_by_attribute(player_detail["info"], '曾用ID', 'alternate_ids', True)
     return result

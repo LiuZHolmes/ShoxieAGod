@@ -7,7 +7,8 @@ def response_data_to_dict(response):
     return dict_data['data']
 
 
-def extract_field_by_attribute(dict, field, attribute):
+def extract_field_by_attribute(dict, field, attribute, end=False):
+    end_of_line = '\n' if end else ''
     if attribute in dict:
-        return f'{field}：{dict[attribute].strip()}\n'
+        return f'{field}：{dict[attribute].strip()}{end_of_line}'
     return ''
