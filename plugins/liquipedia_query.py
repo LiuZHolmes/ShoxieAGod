@@ -1,7 +1,7 @@
-import pprint
-
 from liquipediapy import counterstrike
 from nonebot import on_command, CommandSession
+
+from utils.assembler import extract_field_by_attribute
 
 counterstrike_obj = counterstrike("ShoxieAGod")
 
@@ -23,5 +23,11 @@ async def _(session: CommandSession):
 
 def build_pro_player_detail(player):
     player_detail = counterstrike_obj.get_player_info(player, True)
-    print(player_detail['info'])
-    return pprint.pformat(player_detail['info'], indent=2)
+    result = extract_field_by_attribute(player_detail["info"], '姓名', 'name')
+    result += extract_field_by_attribute(player_detail["info"], '生日', 'birth_details')
+    result += extract_field_by_attribute(player_detail["info"], '国籍', 'nationality')
+    result += extract_field_by_attribute(player_detail["info"], '状态', 'status')
+    result += extract_field_by_attribute(player_detail["info"], '生涯', 'years_active_player')
+    result += extract_field_by_attribute(player_detail["info"], '队伍', 'team')
+    result += extract_field_by_attribute(player_detail["info"], '曾用ID', 'alternate_ids')
+    return result
